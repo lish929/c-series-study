@@ -1,0 +1,2 @@
+﻿  char.c
+D:\c_series_study\C\codes\chapter-3-快速入门C语言\chapter-3-快速入门C语言\char.c(1,10): error C1083: 无法打开包括文件: “stdio.h”: No such file or directory
