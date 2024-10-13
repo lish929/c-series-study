@@ -161,71 +161,6 @@ cmake --build build
     * Release：二进制源码
   * Linux lib.a
 * 注意：当编译静态库时，例如A部分调用了静态线程库，而A调用的B部分调用了动态的线程库，这时回导致编译不过，而动态库则不会存在这个问题（静态库将所有代码复制进来，而动态库只需要接口地址）
-* 示例
-
-  ```cmake
-  //xlog.h
-  //放置在当前cpp中重复导入
-  #ifndef XLOG_H
-  #define XLOG_H
-  class Xlog{
-  public:
-  	Xlog();
-  };
-  #endif
-
-  ```
-
-  ```cmake
-  #include "xlog.h"
-  #include <iostream>
-
-  using namespace std;
-
-  Xlog::Xlog(){
-       cout<<"Create Xlog"<<endl;
-   }
-
-  ```
-
-  ```cmake
-  cmake_minimum_required(VERSION 3.20)
-
-  project(xlog)
-
-  add_library(xlog STATIC xlog.cpp xlog.h)
-
-  ```
-
-  ```cmake
-  cmake_minimum_required(VERSION 3.20)
-  project(test_xlog)
-  # 指定头文件查找路径
-  include_directories(../xlog)
-  # 指定库查找路径
-  link_directories(../xlog/build)
-
-  add_executable(test_xlog test_xlog.cpp)
-  # 指定加载的库
-  target_link_libraries(test_xlog xlog)
-
-  ```
-
-  ```cmake
-  #include <iostream>
-  #include "xlog.h"
-
-  using namespace std;
-
-  int main(){
-  	Xlog xlog;
-  	cout<<"test xlog"<<endl;
-  	return 0;
-  }
-
-  ```
-
-  ‍
 
 ##### 2 动态库
 
@@ -252,3 +187,13 @@ cmake --build build
   * 动态库对应的lib文件叫**导入库**。
 
     实际上静态库本身就包含了实际执行代码、符号表等，而对于导入库而言，其实际的执行代码位于动态库中，导入库只包含了地址符号表等，确保程序找到对应函数的一些基本地址信息。
+
+##### 5 代码示例
+
+* 程序在编译时，链接的是动态库，将动态库移动位置后运行会出现找不到动态库的错误，而链接的是静态库，则不存在这个问题
+
+​![image](assets/image-20241013170948-5uq8wiv.png)​
+
+* Windows下编译使用动态库时需要注意，在编译动态库时，需要在声明导出，否则无法编译出需要的lib文件，同时也要注意导入库与导出库（补充中提到），使用xlog_EXPORTS进行宏定义
+
+​![image](assets/image-20241013173301-ss0azbf.png)​
