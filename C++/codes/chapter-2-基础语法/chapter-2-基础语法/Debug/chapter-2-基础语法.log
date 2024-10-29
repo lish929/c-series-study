@@ -1,5 +1,0 @@
-﻿  chapter-2-数据类型.cpp
-  chapter-2-变量与常量.cpp
-D:\c_series_study\C++\codes\chapter-2-基础语法\chapter-2-基础语法\chapter-2-变量与常量.cpp(12,23): warning C4305: “初始化”: 从“double”到“float”截断
-  正在生成代码...
-  chapter-2-基础语法.vcxproj -> D:\c_series_study\C++\codes\chapter-2-基础语法\Debug\chapter-2-基础语法.exe

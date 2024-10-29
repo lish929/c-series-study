@@ -1,5 +1,0 @@
-cmake_minimum_required(VERSION 3.15)
-
-project(c)
-
-add_subdirectory(chapter-2-C语言基础)
